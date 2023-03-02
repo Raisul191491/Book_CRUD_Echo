@@ -20,16 +20,16 @@ func BookStoreDBInstance(d *gorm.DB) domain.IBookstoreRepo {
 	}
 }
 
-func (repo *dbBookstore) BookList() []models.Book {
-	var AllBooks []models.Book
-	database.Find(&AllBooks)
-	return AllBooks
-}
-func (repo *dbBookstore) GetBooks(bookID uint) models.Book {
-	var Book models.Book
-	database.Where("id = ?", bookID).Find(&Book)
+func (repo *dbBookstore) GetBooks(bookID uint) []models.Book {
+	var Book []models.Book
+	if bookID != 0 {
+		database.Where("id = ?", bookID).Find(&Book)
+	} else {
+		database.Find(&Book)
+	}
 	return Book
 }
+
 func (repo *dbBookstore) CreateBook(book *models.Book) error {
 	if err := database.Create(book).Error; err != nil {
 		return err
