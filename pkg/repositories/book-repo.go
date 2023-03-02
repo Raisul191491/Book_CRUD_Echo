@@ -25,25 +25,25 @@ func (repo *dbBookstore) BookList() []models.Book {
 	database.Find(&AllBooks)
 	return AllBooks
 }
-func (repo *dbBookstore) Get(bookID uint) models.Book {
+func (repo *dbBookstore) GetBooks(bookID uint) models.Book {
 	var Book models.Book
 	database.Where("id = ?", bookID).Find(&Book)
 	return Book
 }
-func (repo *dbBookstore) Create(book *models.Book) error {
+func (repo *dbBookstore) CreateBook(book *models.Book) error {
 	if err := database.Create(book).Error; err != nil {
 		return err
 	}
 	return nil
 }
 
-func (repo *dbBookstore) Update(book *models.Book) error {
+func (repo *dbBookstore) UpdateBook(book *models.Book) error {
 	if err := database.Save(book).Error; err != nil {
 		return err
 	}
 	return nil
 }
-func (repo *dbBookstore) Delete(bookID uint) error {
+func (repo *dbBookstore) DeleteBook(bookID uint) error {
 	var Book models.Book
 	if err := database.Where("id = ?", bookID).Delete(&Book).Error; err != nil {
 		return err

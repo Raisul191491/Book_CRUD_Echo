@@ -25,7 +25,7 @@ func GetBooks(e echo.Context) error {
 	if err != nil {
 		return e.JSON(http.StatusBadRequest, consts.InvalidID)
 	}
-	book := services.Get(uint(bookID))
+	book := services.GetBooks(uint(bookID))
 
 	if book.BookName == "" || book.Author == "" {
 		return e.JSON(http.StatusBadRequest, consts.NotFound)
@@ -51,7 +51,7 @@ func CreateBook(e echo.Context) error {
 		Publication: reqBook.Publication,
 	}
 
-	if err := services.Create(book); err != nil {
+	if err := services.CreateBook(book); err != nil {
 		return e.JSON(http.StatusInternalServerError, consts.Failure)
 	}
 
@@ -73,7 +73,7 @@ func UpdateBook(e echo.Context) error {
 	if err != nil {
 		return e.JSON(http.StatusBadRequest, consts.InvalidID)
 	}
-	book := services.Get(uint(bookID))
+	book := services.GetBooks(uint(bookID))
 
 	if book.BookName == "" || book.Author == "" {
 		return e.JSON(http.StatusBadRequest, consts.NotFound)
@@ -82,7 +82,7 @@ func UpdateBook(e echo.Context) error {
 	updatedBook := ChangeBookInfo(*reqBook)
 	updatedBook.ID = uint(bookID)
 
-	if err := services.Update(&updatedBook); err != nil {
+	if err := services.UpdateBook(&updatedBook); err != nil {
 		return e.JSON(http.StatusInternalServerError, consts.Failure)
 	}
 
@@ -94,13 +94,13 @@ func DeleteBook(e echo.Context) error {
 	if err != nil {
 		return e.JSON(http.StatusBadRequest, consts.InvalidID)
 	}
-	book := services.Get(uint(bookID))
+	book := services.GetBooks(uint(bookID))
 
 	if book.BookName == "" || book.Author == "" {
 		return e.JSON(http.StatusBadRequest, consts.NotFound)
 	}
 
-	if err := services.Delete(uint(bookID)); err != nil {
+	if err := services.DeleteBook(uint(bookID)); err != nil {
 		return e.JSON(http.StatusInternalServerError, consts.Failure)
 	}
 

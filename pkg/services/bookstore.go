@@ -23,30 +23,30 @@ func BookList() []types.CustomBookResponse {
 	}
 	return allBooks
 }
-func Get(bookID uint) types.BookRequest {
-	book := BookstoreInterface.Get(bookID)
+func GetBooks(bookID uint) types.BookRequest {
+	book := BookstoreInterface.GetBooks(bookID)
 	return types.BookRequest{
 		BookName:    book.BookName,
 		Author:      book.Author,
 		Publication: book.Publication,
 	}
 }
-func Create(book *models.Book) error {
-	if err := BookstoreInterface.Create(book); err != nil {
+func CreateBook(book *models.Book) error {
+	if err := BookstoreInterface.CreateBook(book); err != nil {
 		return err
 	}
 	return nil
 }
 
-func Update(book *models.Book) error {
-	if err := BookstoreInterface.Update(book); err != nil {
+func UpdateBook(book *models.Book) error {
+	if err := BookstoreInterface.UpdateBook(book); err != nil {
 		return err
 	}
 	return nil
 }
 
-func Delete(bookID uint) error {
-	if err := BookstoreInterface.Delete(bookID); err != nil {
+func DeleteBook(bookID uint) error {
+	if err := BookstoreInterface.DeleteBook(bookID); err != nil {
 		return err
 	}
 	return nil
