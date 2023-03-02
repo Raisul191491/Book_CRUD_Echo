@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"go-bootcamp/pkg/consts"
+	"go-bootcamp/pkg/domain"
 	"go-bootcamp/pkg/models"
 	"go-bootcamp/pkg/services"
 	"go-bootcamp/pkg/types"
@@ -10,6 +11,12 @@ import (
 
 	"github.com/labstack/echo/v4"
 )
+
+var BookstoreService domain.IBookstoreService
+
+func SetBookstoreService(bService domain.IBookstoreService) {
+	BookstoreService = bService
+}
 
 func GetBookList(e echo.Context) error {
 	bookList := services.BookList()
@@ -25,7 +32,7 @@ func GetBooks(e echo.Context) error {
 	if err != nil {
 		return e.JSON(http.StatusBadRequest, consts.InvalidID)
 	}
-	book := services.GetBooks(uint(bookID))
+	book := BookstoreService.GetBooks(uint(bookID))
 
 	if book.BookName == "" || book.Author == "" {
 		return e.JSON(http.StatusBadRequest, consts.NotFound)
@@ -51,7 +58,7 @@ func CreateBook(e echo.Context) error {
 		Publication: reqBook.Publication,
 	}
 
-	if err := services.CreateBook(book); err != nil {
+	if err := BookstoreService.CreateBook(book); err != nil {
 		return e.JSON(http.StatusInternalServerError, consts.Failure)
 	}
 
@@ -73,7 +80,7 @@ func UpdateBook(e echo.Context) error {
 	if err != nil {
 		return e.JSON(http.StatusBadRequest, consts.InvalidID)
 	}
-	book := services.GetBooks(uint(bookID))
+	book := BookstoreService.GetBooks(uint(bookID))
 
 	if book.BookName == "" || book.Author == "" {
 		return e.JSON(http.StatusBadRequest, consts.NotFound)
@@ -82,7 +89,7 @@ func UpdateBook(e echo.Context) error {
 	updatedBook := ChangeBookInfo(*reqBook)
 	updatedBook.ID = uint(bookID)
 
-	if err := services.UpdateBook(&updatedBook); err != nil {
+	if err := BookstoreService.UpdateBook(&updatedBook); err != nil {
 		return e.JSON(http.StatusInternalServerError, consts.Failure)
 	}
 
@@ -94,13 +101,13 @@ func DeleteBook(e echo.Context) error {
 	if err != nil {
 		return e.JSON(http.StatusBadRequest, consts.InvalidID)
 	}
-	book := services.GetBooks(uint(bookID))
+	book := BookstoreService.GetBooks(uint(bookID))
 
 	if book.BookName == "" || book.Author == "" {
 		return e.JSON(http.StatusBadRequest, consts.NotFound)
 	}
 
-	if err := services.DeleteBook(uint(bookID)); err != nil {
+	if err := BookstoreService.DeleteBook(uint(bookID)); err != nil {
 		return e.JSON(http.StatusInternalServerError, consts.Failure)
 	}
 

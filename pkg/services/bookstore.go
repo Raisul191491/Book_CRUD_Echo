@@ -6,9 +6,19 @@ import (
 	"go-bootcamp/pkg/types"
 )
 
-var BookstoreInterface domain.IBookstoreInterface
+var BookstoreInterface domain.IBookstoreRepo
 
-func SetBookstoreInterface(bInterface domain.IBookstoreInterface) {
+type BookService struct {
+	bService domain.IBookstoreRepo
+}
+
+func BookStoreServiceInstance(bookRepo domain.IBookstoreRepo) domain.IBookstoreService {
+	return &BookService{
+		bService: bookRepo,
+	}
+}
+
+func SetBookstoreInterface(bInterface domain.IBookstoreRepo) {
 	BookstoreInterface = bInterface
 }
 
@@ -23,7 +33,7 @@ func BookList() []types.CustomBookResponse {
 	}
 	return allBooks
 }
-func GetBooks(bookID uint) types.BookRequest {
+func (b *BookService) GetBooks(bookID uint) types.BookRequest {
 	book := BookstoreInterface.GetBooks(bookID)
 	return types.BookRequest{
 		BookName:    book.BookName,
@@ -31,21 +41,21 @@ func GetBooks(bookID uint) types.BookRequest {
 		Publication: book.Publication,
 	}
 }
-func CreateBook(book *models.Book) error {
+func (b *BookService) CreateBook(book *models.Book) error {
 	if err := BookstoreInterface.CreateBook(book); err != nil {
 		return err
 	}
 	return nil
 }
 
-func UpdateBook(book *models.Book) error {
+func (b *BookService) UpdateBook(book *models.Book) error {
 	if err := BookstoreInterface.UpdateBook(book); err != nil {
 		return err
 	}
 	return nil
 }
 
-func DeleteBook(bookID uint) error {
+func (b *BookService) DeleteBook(bookID uint) error {
 	if err := BookstoreInterface.DeleteBook(bookID); err != nil {
 		return err
 	}

@@ -2,6 +2,7 @@ package containers
 
 import (
 	"go-bootcamp/pkg/connection"
+	"go-bootcamp/pkg/controllers"
 	"go-bootcamp/pkg/repositories"
 	"go-bootcamp/pkg/routes"
 	"go-bootcamp/pkg/services"
@@ -14,8 +15,11 @@ func Initialize(e *echo.Echo) {
 	connection.Connect()
 	db := connection.GetDB()
 
-	bookstoreInterface := repositories.BookStoreDBInstance(db)
-	services.SetBookstoreInterface(bookstoreInterface)
+	bookstoreRepo := repositories.BookStoreDBInstance(db)
+	services.SetBookstoreInterface(bookstoreRepo)
+
+	bookstoreService := services.BookStoreServiceInstance(bookstoreRepo)
+	controllers.SetBookstoreService(bookstoreService)
 
 	routes.BookStoreRoutes(e)
 	log.Fatal(e.Start(":9030"))

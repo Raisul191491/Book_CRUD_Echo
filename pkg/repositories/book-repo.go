@@ -13,7 +13,7 @@ type dbBookstore struct {
 	db *gorm.DB
 }
 
-func BookStoreDBInstance(d *gorm.DB) domain.IBookstoreInterface {
+func BookStoreDBInstance(d *gorm.DB) domain.IBookstoreRepo {
 	database = d
 	return &dbBookstore{
 		db: d,
