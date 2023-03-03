@@ -2,6 +2,7 @@ package connection
 
 import (
 	"fmt"
+	"go-bootcamp/pkg/config"
 	"go-bootcamp/pkg/models"
 
 	"gorm.io/driver/mysql"
@@ -11,12 +12,16 @@ import (
 var DB *gorm.DB
 
 func Connect() {
-	dsn := "root:191491@tcp(127.0.0.1:3306)/bookstore?charset=utf8mb4&parseTime=True&loc=Local"
+	config.SetConfig()
+	db := config.LocalConfig
+
+	dsn := fmt.Sprintf("%s:%s@%s/%s?charset=utf8mb4&parseTime=True&loc=Local", db.DBUser, db.DBPass, db.DBIP, db.DbName)
 	d, err := gorm.Open(mysql.Open(dsn))
 	if err != nil {
 		fmt.Println("error connecting to DB")
 		panic(err)
 	}
+
 	fmt.Println("Database Connected")
 	DB = d
 }

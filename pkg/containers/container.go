@@ -12,6 +12,7 @@ import (
 )
 
 func Initialize(e *echo.Echo) {
+
 	connection.Connect()
 	db := connection.GetDB()
 
