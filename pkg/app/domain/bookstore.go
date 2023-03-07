@@ -1,8 +1,8 @@
 package domain
 
 import (
+	"go-bootcamp/pkg/app/utils/types"
 	"go-bootcamp/pkg/infra/connection/db/model"
-	"go-bootcamp/pkg/types"
 )
 
 type IBookstoreRepo interface {

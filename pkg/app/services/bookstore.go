@@ -3,8 +3,8 @@ package services
 import (
 	"errors"
 	"go-bootcamp/pkg/app/domain"
+	"go-bootcamp/pkg/app/utils/types"
 	"go-bootcamp/pkg/infra/connection/db/model"
-	"go-bootcamp/pkg/types"
 )
 
 var BookstoreInterface domain.IBookstoreRepo

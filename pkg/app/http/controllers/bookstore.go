@@ -2,10 +2,11 @@ package controllers
 
 import (
 	"go-bootcamp/pkg/app/domain"
-	"go-bootcamp/pkg/consts"
+	"go-bootcamp/pkg/app/utils/consts"
 	"go-bootcamp/pkg/infra/connection/db/model"
 
-	"go-bootcamp/pkg/types"
+	"go-bootcamp/pkg/app/utils/types"
+
 	"net/http"
 	"strconv"
 

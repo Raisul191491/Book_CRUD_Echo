@@ -1,7 +1,7 @@
 package main
 
 import (
-	"go-bootcamp/pkg/containers"
+	containers "go-bootcamp/pkg/cmd"
 
 	"github.com/labstack/echo/v4"
 )
