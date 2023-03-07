@@ -2,8 +2,8 @@ package connection
 
 import (
 	"fmt"
-	"go-bootcamp/pkg/config"
-	"go-bootcamp/pkg/models"
+	"go-bootcamp/pkg/infra/config"
+	"go-bootcamp/pkg/infra/connection/db/model"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -30,16 +30,16 @@ func GetDB() *gorm.DB {
 	if DB == nil {
 		Connect()
 	}
-	// CreateDatabase()
+	CreateDatabase()
 	Migrate()
 	return DB
 }
 
 func CreateDatabase() {
-	DB.Migrator().DropTable(&models.Book{})
-	DB.Migrator().CreateTable(&models.Book{})
+	DB.Migrator().DropTable(&model.Book{})
+	DB.Migrator().CreateTable(&model.Book{})
 }
 
 func Migrate() {
-	DB.Migrator().AutoMigrate(&models.Book{})
+	DB.Migrator().AutoMigrate(&model.Book{})
 }

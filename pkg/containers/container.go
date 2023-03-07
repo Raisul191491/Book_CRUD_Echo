@@ -1,11 +1,11 @@
 package containers
 
 import (
-	"go-bootcamp/pkg/connection"
-	"go-bootcamp/pkg/controllers"
+	"go-bootcamp/pkg/app/http/controllers"
+	services "go-bootcamp/pkg/app/services/impl"
+	"go-bootcamp/pkg/infra/connection"
 	"go-bootcamp/pkg/repositories"
 	"go-bootcamp/pkg/routes"
-	"go-bootcamp/pkg/services"
 	"log"
 
 	"github.com/labstack/echo/v4"

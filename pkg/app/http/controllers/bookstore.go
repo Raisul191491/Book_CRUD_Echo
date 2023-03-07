@@ -1,9 +1,10 @@
 package controllers
 
 import (
+	"go-bootcamp/pkg/app/domain"
 	"go-bootcamp/pkg/consts"
-	"go-bootcamp/pkg/domain"
-	"go-bootcamp/pkg/models"
+	"go-bootcamp/pkg/infra/connection/db/model"
+
 	"go-bootcamp/pkg/types"
 	"net/http"
 	"strconv"
@@ -28,7 +29,7 @@ func CreateBook(e echo.Context) error {
 		return e.JSON(http.StatusBadRequest, err.Error())
 	}
 
-	book := &models.Book{
+	book := &model.Book{
 		BookName:    reqBook.BookName,
 		Author:      reqBook.Author,
 		Publication: reqBook.Publication,
@@ -107,8 +108,8 @@ func DeleteBook(e echo.Context) error {
 	return e.JSON(http.StatusOK, "Book was deleted successfully")
 }
 
-func ChangeBookInfo(reqBook types.BookRequest) models.Book {
-	var updatedBook models.Book
+func ChangeBookInfo(reqBook types.BookRequest) model.Book {
+	var updatedBook model.Book
 
 	if reqBook.BookName != "" {
 		updatedBook.BookName = reqBook.BookName

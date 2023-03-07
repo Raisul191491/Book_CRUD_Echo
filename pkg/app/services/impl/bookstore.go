@@ -2,8 +2,8 @@ package services
 
 import (
 	"errors"
-	"go-bootcamp/pkg/domain"
-	"go-bootcamp/pkg/models"
+	"go-bootcamp/pkg/app/domain"
+	"go-bootcamp/pkg/infra/connection/db/model"
 	"go-bootcamp/pkg/types"
 )
 
@@ -40,14 +40,14 @@ func (b *BookService) GetBooks(bookID uint) ([]types.BookRequest, error) {
 	return allBooks, nil
 }
 
-func (b *BookService) CreateBook(book *models.Book) error {
+func (b *BookService) CreateBook(book *model.Book) error {
 	if err := BookstoreInterface.CreateBook(book); err != nil {
 		return errors.New("Book was not created")
 	}
 	return nil
 }
 
-func (b *BookService) UpdateBook(book *models.Book) error {
+func (b *BookService) UpdateBook(book *model.Book) error {
 	if err := BookstoreInterface.UpdateBook(book); err != nil {
 		return errors.New("Book update was unsuccesful")
 	}

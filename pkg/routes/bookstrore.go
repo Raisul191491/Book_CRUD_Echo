@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"go-bootcamp/pkg/controllers"
+	"go-bootcamp/pkg/app/http/controllers"
 
 	"github.com/labstack/echo/v4"
 )

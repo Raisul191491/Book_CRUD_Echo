@@ -1,20 +1,20 @@
 package domain
 
 import (
-	"go-bootcamp/pkg/models"
+	"go-bootcamp/pkg/infra/connection/db/model"
 	"go-bootcamp/pkg/types"
 )
 
 type IBookstoreRepo interface {
-	GetBooks(bookID uint) []models.Book
-	CreateBook(book *models.Book) error
-	UpdateBook(book *models.Book) error
+	GetBooks(bookID uint) []model.Book
+	CreateBook(book *model.Book) error
+	UpdateBook(book *model.Book) error
 	DeleteBook(bookID uint) error
 }
 
 type IBookstoreService interface {
 	GetBooks(bookID uint) ([]types.BookRequest, error)
-	CreateBook(book *models.Book) error
-	UpdateBook(book *models.Book) error
+	CreateBook(book *model.Book) error
+	UpdateBook(book *model.Book) error
 	DeleteBook(bookID uint) error
 }

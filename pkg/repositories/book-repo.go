@@ -1,8 +1,9 @@
 package repositories
 
 import (
-	"go-bootcamp/pkg/domain"
-	"go-bootcamp/pkg/models"
+	"go-bootcamp/pkg/app/domain"
+
+	"go-bootcamp/pkg/infra/connection/db/model"
 
 	"gorm.io/gorm"
 )
@@ -20,8 +21,8 @@ func BookStoreDBInstance(d *gorm.DB) domain.IBookstoreRepo {
 	}
 }
 
-func (repo *dbBookstore) GetBooks(bookID uint) []models.Book {
-	var Book []models.Book
+func (repo *dbBookstore) GetBooks(bookID uint) []model.Book {
+	var Book []model.Book
 	if bookID != 0 {
 		database.Where("id = ?", bookID).Find(&Book)
 	} else {
@@ -30,21 +31,21 @@ func (repo *dbBookstore) GetBooks(bookID uint) []models.Book {
 	return Book
 }
 
-func (repo *dbBookstore) CreateBook(book *models.Book) error {
+func (repo *dbBookstore) CreateBook(book *model.Book) error {
 	if err := database.Create(book).Error; err != nil {
 		return err
 	}
 	return nil
 }
 
-func (repo *dbBookstore) UpdateBook(book *models.Book) error {
+func (repo *dbBookstore) UpdateBook(book *model.Book) error {
 	if err := database.Save(book).Error; err != nil {
 		return err
 	}
 	return nil
 }
 func (repo *dbBookstore) DeleteBook(bookID uint) error {
-	var Book models.Book
+	var Book model.Book
 	if err := database.Where("id = ?", bookID).Delete(&Book).Error; err != nil {
 		return err
 	}
