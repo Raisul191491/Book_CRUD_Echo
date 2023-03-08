@@ -11,7 +11,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func Initialize(e *echo.Echo) {
+func Serve(e *echo.Echo) {
 
 	connection.Connect()
 	db := connection.GetDB()

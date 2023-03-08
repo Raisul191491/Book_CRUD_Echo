@@ -8,5 +8,5 @@ import (
 
 func main() {
 	e := echo.New()
-	containers.Initialize(e)
+	containers.Serve(e)
 }
