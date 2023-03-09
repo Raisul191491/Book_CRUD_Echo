@@ -20,9 +20,11 @@ cd Book_CRUD_Echo
 - Make sure the port you entered is free.
 
 ## Start backend
-```
-go mod tidy
-```
+To install all the dependencis...
+
+  
+    go mod tidy
+   
 
 - #### Using go run
     ```
@@ -65,4 +67,3 @@ go mod tidy
  * `services` contains service methods.
  * `types` holds the different structures used throughout the project and validation.
 
- 
