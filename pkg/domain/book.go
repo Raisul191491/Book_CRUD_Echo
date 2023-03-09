@@ -5,14 +5,14 @@ import (
 	"go-bootcamp/pkg/types"
 )
 
-type IBookstoreRepo interface {
+type IBookRepo interface {
 	GetBooks(bookID uint) []models.Book
 	CreateBook(book *models.Book) error
 	UpdateBook(book *models.Book) error
 	DeleteBook(bookID uint) error
 }
 
-type IBookstoreService interface {
+type IBookService interface {
 	GetBooks(bookID uint) ([]types.BookRequest, error)
 	CreateBook(book *models.Book) error
 	UpdateBook(book *models.Book) error

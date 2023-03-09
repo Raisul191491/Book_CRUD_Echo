@@ -30,14 +30,8 @@ func GetDB() *gorm.DB {
 	if DB == nil {
 		Connect()
 	}
-	// CreateDatabase()
 	Migrate()
 	return DB
-}
-
-func CreateDatabase() {
-	DB.Migrator().DropTable(&models.Book{})
-	DB.Migrator().CreateTable(&models.Book{})
 }
 
 func Migrate() {

@@ -6,11 +6,11 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func BookStoreRoutes(e *echo.Echo) {
-	bookstore := e.Group("/bookstore")
+func BookRoutes(e *echo.Echo) {
+	book := e.Group("/bookstore")
 
-	bookstore.POST("/book", controllers.CreateBook)
-	bookstore.GET("/book", controllers.GetBooks)
-	bookstore.PUT("/book/:bookID", controllers.UpdateBook)
-	bookstore.DELETE("/book/:bookID", controllers.DeleteBook)
+	book.POST("/book", controllers.CreateBook)
+	book.GET("/book", controllers.GetBooks)
+	book.PUT("/book/:bookID", controllers.UpdateBook)
+	book.DELETE("/book/:bookID", controllers.DeleteBook)
 }

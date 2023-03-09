@@ -11,10 +11,10 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-var BookstoreService domain.IBookstoreService
+var BookService domain.IBookService
 
-func SetBookstoreService(bService domain.IBookstoreService) {
-	BookstoreService = bService
+func SetBookService(bService domain.IBookService) {
+	BookService = bService
 }
 
 func CreateBook(e echo.Context) error {
@@ -34,7 +34,7 @@ func CreateBook(e echo.Context) error {
 		Publication: reqBook.Publication,
 	}
 
-	if err := BookstoreService.CreateBook(book); err != nil {
+	if err := BookService.CreateBook(book); err != nil {
 		return e.JSON(http.StatusInternalServerError, err.Error())
 	}
 
@@ -48,7 +48,7 @@ func GetBooks(e echo.Context) error {
 		return e.JSON(http.StatusBadRequest, consts.InvalidID)
 	}
 
-	book, err := BookstoreService.GetBooks(uint(bookID))
+	book, err := BookService.GetBooks(uint(bookID))
 
 	if err != nil {
 		return e.JSON(http.StatusBadRequest, err.Error())
@@ -74,7 +74,7 @@ func UpdateBook(e echo.Context) error {
 		return e.JSON(http.StatusBadRequest, consts.InvalidID)
 	}
 
-	_, err = BookstoreService.GetBooks(uint(bookID))
+	_, err = BookService.GetBooks(uint(bookID))
 	if err != nil {
 		return e.JSON(http.StatusBadRequest, err.Error())
 	}
@@ -82,7 +82,7 @@ func UpdateBook(e echo.Context) error {
 	updatedBook := ChangeBookInfo(*reqBook)
 	updatedBook.ID = uint(bookID)
 
-	if err := BookstoreService.UpdateBook(&updatedBook); err != nil {
+	if err := BookService.UpdateBook(&updatedBook); err != nil {
 		return e.JSON(http.StatusInternalServerError, err.Error())
 	}
 
@@ -95,12 +95,12 @@ func DeleteBook(e echo.Context) error {
 		return e.JSON(http.StatusBadRequest, consts.InvalidID)
 	}
 
-	_, err = BookstoreService.GetBooks(uint(bookID))
+	_, err = BookService.GetBooks(uint(bookID))
 	if err != nil {
 		return e.JSON(http.StatusBadRequest, err.Error())
 	}
 
-	if err := BookstoreService.DeleteBook(uint(bookID)); err != nil {
+	if err := BookService.DeleteBook(uint(bookID)); err != nil {
 		return e.JSON(http.StatusInternalServerError, err.Error())
 	}
 

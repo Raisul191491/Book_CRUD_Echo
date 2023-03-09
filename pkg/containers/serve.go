@@ -16,12 +16,12 @@ func Serve(e *echo.Echo) {
 	connection.Connect()
 	db := connection.GetDB()
 
-	bookstoreRepo := repositories.BookStoreDBInstance(db)
-	services.SetBookstoreInterface(bookstoreRepo)
+	bookRepo := repositories.BookDBInstance(db)
+	services.SetBookInterface(bookRepo)
 
-	bookstoreService := services.BookStoreServiceInstance(bookstoreRepo)
-	controllers.SetBookstoreService(bookstoreService)
+	bookService := services.BookServiceInstance(bookRepo)
+	controllers.SetBookService(bookService)
 
-	routes.BookStoreRoutes(e)
+	routes.BookRoutes(e)
 	log.Fatal(e.Start(":9030"))
 }
