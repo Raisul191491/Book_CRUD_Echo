@@ -3,7 +3,7 @@
 ---
 <p align="center"><b>This repository contains the fully organized and structured version of the <a href=#>GO Bootcamp</a> final project. The following is the introduction and a guide on how to navigate and start the backend.</b></p>
 
-[![Golang](./resources/golang.png)](https://github.com/golang/go)
+[![Go Reference](https://pkg.go.dev/badge/golang.org/x/example.svg)](https://pkg.go.dev/golang.org/x/example)
 
 ---
 
@@ -59,3 +59,10 @@ go mod tidy
  * `containers` contains serve function that initializes the project.
  * `controllers` functions creates responses based on requests to the endpoints.
  * `domain` contains the repository and service interfaces. 
+ * `models` holds the database schema.
+ * `repositories` contains database methods.
+ * `routes` contains the endpoints/paths.
+ * `services` contains service methods.
+ * `types` holds the different structures used throughout the project and validation.
+
+ 
