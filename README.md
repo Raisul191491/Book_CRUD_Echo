@@ -6,7 +6,7 @@
 
 [![Go Reference](https://pkg.go.dev/badge/golang.org/x/example.svg)](https://pkg.go.dev/golang.org/x/example)
 
-![](https://i.imgur.com/waxVImv.png)
+![](https://png.pngtree.com/png-clipart/20190918/ourmid/pngtree-creative-simple-dividing-line-1713763-png-image_1731060.jpg)
 
 ## Clone the project
 ```
