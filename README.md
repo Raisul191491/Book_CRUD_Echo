@@ -4,7 +4,7 @@
 
 <p align="center"><b>This repository contains the fully organized and structured version of the <a href=https://docs.google.com/document/d/1d5a7VX5234sE4KVx6_7x3F8wArIszn-2VQ1zB5StftU/edit#heading=h.oxsrk713yfuh>GO Bootcamp</a> final project. The following is the introduction and a guide on how to navigate and start the backend.</b></p>
 
-[![Go Reference](https://pkg.go.dev/badge/golang.org/x/example.svg)](https://pkg.go.dev/golang.org/x/example)
+![](https://i.imgur.com/waxVImv.png)
 
 ![](https://png.pngtree.com/png-clipart/20190918/ourmid/pngtree-creative-simple-dividing-line-1713763-png-image_1731060.jpg)
 
