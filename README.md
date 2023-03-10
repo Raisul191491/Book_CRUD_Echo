@@ -1,11 +1,12 @@
 <h1 align="center">Book CRUD backend using ECHO</h1>
 
----
+![](https://i.imgur.com/waxVImv.png)
+
 <p align="center"><b>This repository contains the fully organized and structured version of the <a href=#>GO Bootcamp</a> final project. The following is the introduction and a guide on how to navigate and start the backend.</b></p>
 
 [![Go Reference](https://pkg.go.dev/badge/golang.org/x/example.svg)](https://pkg.go.dev/golang.org/x/example)
 
----
+![](https://i.imgur.com/waxVImv.png)
 
 ## Clone the project
 ```
