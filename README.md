@@ -6,8 +6,6 @@
 
 ![](https://i.imgur.com/waxVImv.png)
 
-![](https://png.pngtree.com/png-clipart/20190918/ourmid/pngtree-creative-simple-dividing-line-1713763-png-image_1731060.jpg)
-
 ## Clone the project
 ```
 git clone https://github.com/Raisul191491/Book_CRUD_Echo.git
