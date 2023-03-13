@@ -7,8 +7,6 @@ import (
 	"go-bootcamp/pkg/types"
 )
 
-var BookInterface domain.IBookRepo
-
 type BookService struct {
 	bService domain.IBookRepo
 }
@@ -19,13 +17,9 @@ func BookServiceInstance(bookRepo domain.IBookRepo) domain.IBookService {
 	}
 }
 
-func SetBookInterface(bInterface domain.IBookRepo) {
-	BookInterface = bInterface
-}
-
-func (b *BookService) GetBooks(bookID uint) ([]types.BookRequest, error) {
+func (service *BookService) GetBooks(bookID uint) ([]types.BookRequest, error) {
 	var allBooks []types.BookRequest
-	book := BookInterface.GetBooks(bookID)
+	book := service.bService.GetBooks(bookID)
 	for _, val := range book {
 		allBooks = append(allBooks, types.BookRequest{
 			ID:          val.ID,
@@ -40,22 +34,22 @@ func (b *BookService) GetBooks(bookID uint) ([]types.BookRequest, error) {
 	return allBooks, nil
 }
 
-func (b *BookService) CreateBook(book *models.Book) error {
-	if err := BookInterface.CreateBook(book); err != nil {
+func (service *BookService) CreateBook(book *models.Book) error {
+	if err := service.bService.CreateBook(book); err != nil {
 		return errors.New("Book was not created")
 	}
 	return nil
 }
 
-func (b *BookService) UpdateBook(book *models.Book) error {
-	if err := BookInterface.UpdateBook(book); err != nil {
+func (service *BookService) UpdateBook(book *models.Book) error {
+	if err := service.bService.UpdateBook(book); err != nil {
 		return errors.New("Book update was unsuccesful")
 	}
 	return nil
 }
 
-func (b *BookService) DeleteBook(bookID uint) error {
-	if err := BookInterface.DeleteBook(bookID); err != nil {
+func (service *BookService) DeleteBook(bookID uint) error {
+	if err := service.bService.DeleteBook(bookID); err != nil {
 		return errors.New("Book deletion was unsuccesful")
 	}
 	return nil

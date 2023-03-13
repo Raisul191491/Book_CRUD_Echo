@@ -16,7 +16,7 @@ cd Book_CRUD_Echo
 
 ## Configure database
 - Navigate to app.env file.
-- Change the values of environment variables according to your mysql profile. For other databases follow 
+- Change the values of environment variables according to your mysql profile. For other databases, follow **[GORM Docs](https://gorm.io/docs/connecting_to_the_database.html)**.
 - Manually create the database that you want to use.
 - Make sure the port you entered is free.
 
@@ -27,11 +27,11 @@ To install all the dependencis...
     go mod tidy
    
 
-- #### Using go run
+- #### Using go run (Basic)
     ```
     go run main.go
     ```
-- #### Using nodemon
+- #### Using nodemon for live loading (Optional)
     
     Install nodemon
 
@@ -53,7 +53,7 @@ To install all the dependencis...
  * Provide a basic understanding of how **Echo** works. 
  * Application of **GORM**.
  * Provide understanding about backend **project structuring**.
- * Implementation knowledge of **Interface binding**. (*Repositories and Services*)
+ * Implementation of knowledge gathered in **[Go Bootcamp](https://docs.google.com/document/d/1d5a7VX5234sE4KVx6_7x3F8wArIszn-2VQ1zB5StftU/edit#heading=h.oxsrk713yfuh)**
 
  ## Where and What?
  * `config` loads the environment variables.

@@ -16,7 +16,7 @@ type Config struct {
 	Port   string `mapstructure:"PORT"`
 }
 
-func InitConfig() (config *Config) {
+func InitConfig() *Config {
 	viper.AddConfigPath(".")
 	viper.SetConfigName("app")
 	viper.SetConfigType("env")
@@ -26,11 +26,13 @@ func InitConfig() (config *Config) {
 		log.Fatal("Error reading env file", err)
 	}
 
+	var config *Config
+
 	if err := viper.Unmarshal(&config); err != nil {
 		log.Fatal("Error reading env file", err)
 	}
 
-	return
+	return config
 }
 
 func SetConfig() {

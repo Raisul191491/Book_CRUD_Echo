@@ -1,6 +1,8 @@
 package containers
 
 import (
+	"fmt"
+	"go-bootcamp/pkg/config"
 	"go-bootcamp/pkg/connection"
 	"go-bootcamp/pkg/controllers"
 	"go-bootcamp/pkg/repositories"
@@ -13,15 +15,15 @@ import (
 
 func Serve(e *echo.Echo) {
 
+	config.SetConfig()
 	connection.Connect()
 	db := connection.GetDB()
 
 	bookRepo := repositories.BookDBInstance(db)
-	services.SetBookInterface(bookRepo)
 
 	bookService := services.BookServiceInstance(bookRepo)
 	controllers.SetBookService(bookService)
 
 	routes.BookRoutes(e)
-	log.Fatal(e.Start(":9030"))
+	log.Fatal(e.Start(fmt.Sprintf(":%s", config.LocalConfig.Port)))
 }

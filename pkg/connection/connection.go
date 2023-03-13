@@ -12,10 +12,11 @@ import (
 var DB *gorm.DB
 
 func Connect() {
-	config.SetConfig()
 	db := config.LocalConfig
 
-	dsn := fmt.Sprintf("%s:%s@%s/%s?charset=utf8mb4&parseTime=True&loc=Local", db.DBUser, db.DBPass, db.DBIP, db.DbName)
+	dsn := fmt.
+		Sprintf("%s:%s@%s/%s?charset=utf8mb4&parseTime=True&loc=Local",
+			db.DBUser, db.DBPass, db.DBIP, db.DbName)
 	d, err := gorm.Open(mysql.Open(dsn))
 	if err != nil {
 		fmt.Println("error connecting to DB")
@@ -26,14 +27,14 @@ func Connect() {
 	DB = d
 }
 
+func Migrate() {
+	DB.Migrator().AutoMigrate(&models.Book{})
+}
+
 func GetDB() *gorm.DB {
 	if DB == nil {
 		Connect()
 	}
 	Migrate()
 	return DB
-}
-
-func Migrate() {
-	DB.Migrator().AutoMigrate(&models.Book{})
 }
