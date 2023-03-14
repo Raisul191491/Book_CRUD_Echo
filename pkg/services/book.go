@@ -8,18 +8,18 @@ import (
 )
 
 type BookService struct {
-	bService domain.IBookRepo
+	repo domain.IBookRepo
 }
 
 func BookServiceInstance(bookRepo domain.IBookRepo) domain.IBookService {
 	return &BookService{
-		bService: bookRepo,
+		repo: bookRepo,
 	}
 }
 
 func (service *BookService) GetBooks(bookID uint) ([]types.BookRequest, error) {
 	var allBooks []types.BookRequest
-	book := service.bService.GetBooks(bookID)
+	book := service.repo.GetBooks(bookID)
 	for _, val := range book {
 		allBooks = append(allBooks, types.BookRequest{
 			ID:          val.ID,
@@ -29,28 +29,28 @@ func (service *BookService) GetBooks(bookID uint) ([]types.BookRequest, error) {
 		})
 	}
 	if len(book) == 0 {
-		return nil, errors.New("No book found")
+		return nil, errors.New("no book found")
 	}
 	return allBooks, nil
 }
 
 func (service *BookService) CreateBook(book *models.Book) error {
-	if err := service.bService.CreateBook(book); err != nil {
-		return errors.New("Book was not created")
+	if err := service.repo.CreateBook(book); err != nil {
+		return errors.New("book was not created")
 	}
 	return nil
 }
 
 func (service *BookService) UpdateBook(book *models.Book) error {
-	if err := service.bService.UpdateBook(book); err != nil {
-		return errors.New("Book update was unsuccesful")
+	if err := service.repo.UpdateBook(book); err != nil {
+		return errors.New("book update was unsuccesful")
 	}
 	return nil
 }
 
 func (service *BookService) DeleteBook(bookID uint) error {
-	if err := service.bService.DeleteBook(bookID); err != nil {
-		return errors.New("Book deletion was unsuccesful")
+	if err := service.repo.DeleteBook(bookID); err != nil {
+		return errors.New("book deletion was unsuccesful")
 	}
 	return nil
 }

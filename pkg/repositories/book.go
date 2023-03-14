@@ -7,42 +7,42 @@ import (
 	"gorm.io/gorm"
 )
 
-type dbBook struct {
+type bookRepo struct {
 	db *gorm.DB
 }
 
 func BookDBInstance(d *gorm.DB) domain.IBookRepo {
-	return &dbBook{
+	return &bookRepo{
 		db: d,
 	}
 }
 
-func (dbObject *dbBook) GetBooks(bookID uint) []models.Book {
+func (repo *bookRepo) GetBooks(bookID uint) []models.Book {
 	var Book []models.Book
 	if bookID != 0 {
-		dbObject.db.Where("id = ?", bookID).Find(&Book)
+		repo.db.Where("id = ?", bookID).Find(&Book)
 	} else {
-		dbObject.db.Find(&Book)
+		repo.db.Find(&Book)
 	}
 	return Book
 }
 
-func (dbObject *dbBook) CreateBook(book *models.Book) error {
-	if err := dbObject.db.Create(book).Error; err != nil {
+func (repo *bookRepo) CreateBook(book *models.Book) error {
+	if err := repo.db.Create(book).Error; err != nil {
 		return err
 	}
 	return nil
 }
 
-func (dbObject *dbBook) UpdateBook(book *models.Book) error {
-	if err := dbObject.db.Save(book).Error; err != nil {
+func (repo *bookRepo) UpdateBook(book *models.Book) error {
+	if err := repo.db.Save(book).Error; err != nil {
 		return err
 	}
 	return nil
 }
-func (dbObject *dbBook) DeleteBook(bookID uint) error {
+func (repo *bookRepo) DeleteBook(bookID uint) error {
 	var Book models.Book
-	if err := dbObject.db.Where("id = ?", bookID).Delete(&Book).Error; err != nil {
+	if err := repo.db.Where("id = ?", bookID).Delete(&Book).Error; err != nil {
 		return err
 	}
 	return nil
