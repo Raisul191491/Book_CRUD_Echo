@@ -17,9 +17,19 @@ func BookServiceInstance(bookRepo domain.IBookRepo) domain.IBookService {
 	}
 }
 
+func (service *BookService) CreateBook(book *models.Book) error {
+	if err := service.repo.CreateBook(book); err != nil {
+		return errors.New("book was not created")
+	}
+	return nil
+}
+
 func (service *BookService) GetBooks(bookID uint) ([]types.BookRequest, error) {
 	var allBooks []types.BookRequest
 	book := service.repo.GetBooks(bookID)
+	if len(book) == 0 {
+		return nil, errors.New("no book found")
+	}
 	for _, val := range book {
 		allBooks = append(allBooks, types.BookRequest{
 			ID:          val.ID,
@@ -28,17 +38,7 @@ func (service *BookService) GetBooks(bookID uint) ([]types.BookRequest, error) {
 			Publication: val.Publication,
 		})
 	}
-	if len(book) == 0 {
-		return nil, errors.New("no book found")
-	}
 	return allBooks, nil
-}
-
-func (service *BookService) CreateBook(book *models.Book) error {
-	if err := service.repo.CreateBook(book); err != nil {
-		return errors.New("book was not created")
-	}
-	return nil
 }
 
 func (service *BookService) UpdateBook(book *models.Book) error {
@@ -50,7 +50,7 @@ func (service *BookService) UpdateBook(book *models.Book) error {
 
 func (service *BookService) DeleteBook(bookID uint) error {
 	if err := service.repo.DeleteBook(bookID); err != nil {
-		return errors.New("book deletion was unsuccesful")
+		return errors.New("book deletion was unsuccessful")
 	}
 	return nil
 }

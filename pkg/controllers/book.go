@@ -64,23 +64,29 @@ func UpdateBook(e echo.Context) error {
 		return e.JSON(http.StatusBadRequest, consts.InvalidInput)
 	}
 
-	if err := reqBook.Validate(); err != nil {
-		return e.JSON(http.StatusBadRequest, err.Error())
-	}
-
 	tempBookID := e.Param("bookID")
 	bookID, err := strconv.ParseUint(tempBookID, 0, 0)
 	if err != nil {
 		return e.JSON(http.StatusBadRequest, consts.InvalidID)
 	}
 
-	_, err = BookService.GetBooks(uint(bookID))
+	existingBook, err := BookService.GetBooks(uint(bookID))
 	if err != nil {
 		return e.JSON(http.StatusBadRequest, err.Error())
 	}
 
-	updatedBook := ChangeBookInfo(*reqBook)
+	updatedBook := ChangeBookInfo(existingBook[0], *reqBook)
 	updatedBook.ID = uint(bookID)
+
+	checkBook := &types.BookRequest{
+		BookName:    updatedBook.BookName,
+		Author:      updatedBook.Author,
+		Publication: updatedBook.Publication,
+	}
+
+	if err := checkBook.Validate(); err != nil {
+		return e.JSON(http.StatusBadRequest, err.Error())
+	}
 
 	if err := BookService.UpdateBook(&updatedBook); err != nil {
 		return e.JSON(http.StatusInternalServerError, err.Error())
@@ -88,6 +94,7 @@ func UpdateBook(e echo.Context) error {
 
 	return e.JSON(http.StatusCreated, "Book was updated successfully")
 }
+
 func DeleteBook(e echo.Context) error {
 	tempBookID := e.Param("bookID")
 	bookID, err := strconv.ParseUint(tempBookID, 0, 0)
@@ -107,8 +114,12 @@ func DeleteBook(e echo.Context) error {
 	return e.JSON(http.StatusOK, "Book was deleted successfully")
 }
 
-func ChangeBookInfo(reqBook types.BookRequest) models.Book {
+func ChangeBookInfo(oldBook, reqBook types.BookRequest) models.Book {
+
 	var updatedBook models.Book
+	updatedBook.BookName = oldBook.BookName
+	updatedBook.Author = oldBook.Author
+	updatedBook.Publication = oldBook.Publication
 
 	if reqBook.BookName != "" {
 		updatedBook.BookName = reqBook.BookName

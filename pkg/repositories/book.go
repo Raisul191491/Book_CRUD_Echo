@@ -17,6 +17,13 @@ func BookDBInstance(d *gorm.DB) domain.IBookRepo {
 	}
 }
 
+func (repo *bookRepo) CreateBook(book *models.Book) error {
+	if err := repo.db.Create(book).Error; err != nil {
+		return err
+	}
+	return nil
+}
+
 func (repo *bookRepo) GetBooks(bookID uint) []models.Book {
 	var Book []models.Book
 	if bookID != 0 {
@@ -27,13 +34,6 @@ func (repo *bookRepo) GetBooks(bookID uint) []models.Book {
 	return Book
 }
 
-func (repo *bookRepo) CreateBook(book *models.Book) error {
-	if err := repo.db.Create(book).Error; err != nil {
-		return err
-	}
-	return nil
-}
-
 func (repo *bookRepo) UpdateBook(book *models.Book) error {
 	if err := repo.db.Save(book).Error; err != nil {
 		return err
@@ -42,7 +42,9 @@ func (repo *bookRepo) UpdateBook(book *models.Book) error {
 }
 func (repo *bookRepo) DeleteBook(bookID uint) error {
 	var Book models.Book
-	if err := repo.db.Where("id = ?", bookID).Delete(&Book).Error; err != nil {
+	if err := repo.db.
+		Where("id = ?", bookID).Delete(&Book).
+		Error; err != nil {
 		return err
 	}
 	return nil
