@@ -9,11 +9,6 @@ type BookRequest struct {
 	Publication string `json:"publication,omitempty"`
 }
 
-type CustomBookResponse struct {
-	ID       uint   `json:"id"`
-	BookName string `json:"bookname"`
-}
-
 func (book BookRequest) Validate() error {
 	return validation.ValidateStruct(&book,
 		validation.Field(&book.BookName,

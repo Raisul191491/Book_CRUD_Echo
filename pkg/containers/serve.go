@@ -16,12 +16,13 @@ import (
 func Serve(e *echo.Echo) {
 
 	config.SetConfig()
-	connection.Connect()
+
 	db := connection.GetDB()
 
 	bookRepo := repositories.BookDBInstance(db)
 
 	bookService := services.BookServiceInstance(bookRepo)
+
 	controllers.SetBookService(bookService)
 
 	routes.BookRoutes(e)
