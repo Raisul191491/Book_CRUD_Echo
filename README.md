@@ -23,12 +23,13 @@ cd Book_CRUD_Echo
 ## Start backend
 To install all the dependencis...
 
-  
-    go mod tidy
+```bash  
+go mod tidy
+```
    
 
 - #### Using go run (Basic)
-    ```
+    ```bash
     go run main.go
     ```
 - #### Using nodemon for live loading (Optional)

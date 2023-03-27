@@ -28,7 +28,7 @@ func (service *BookService) GetBooks(bookID uint) ([]types.BookRequest, error) {
 	var allBooks []types.BookRequest
 	book := service.repo.GetBooks(bookID)
 	if len(book) == 0 {
-		return nil, errors.New("no book found")
+		return nil, errors.New("book doesn not exist")
 	}
 	for _, val := range book {
 		allBooks = append(allBooks, types.BookRequest{

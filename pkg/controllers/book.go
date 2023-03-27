@@ -64,6 +64,10 @@ func UpdateBook(e echo.Context) error {
 		return e.JSON(http.StatusBadRequest, consts.InvalidInput)
 	}
 
+	if err := reqBook.Validate(); err != nil {
+		return e.JSON(http.StatusBadRequest, err.Error())
+	}
+
 	tempBookID := e.Param("bookID")
 	bookID, err := strconv.ParseUint(tempBookID, 0, 0)
 	if err != nil {
@@ -75,20 +79,14 @@ func UpdateBook(e echo.Context) error {
 		return e.JSON(http.StatusBadRequest, err.Error())
 	}
 
-	updatedBook := ChangeBookInfo(existingBook[0], *reqBook)
-	updatedBook.ID = uint(bookID)
-
-	checkBook := &types.BookRequest{
-		BookName:    updatedBook.BookName,
-		Author:      updatedBook.Author,
-		Publication: updatedBook.Publication,
+	updatedBook := &models.Book{
+		ID:          uint(bookID),
+		BookName:    existingBook[0].BookName,
+		Author:      existingBook[0].Author,
+		Publication: existingBook[0].Publication,
 	}
 
-	if err := checkBook.Validate(); err != nil {
-		return e.JSON(http.StatusBadRequest, err.Error())
-	}
-
-	if err := BookService.UpdateBook(&updatedBook); err != nil {
+	if err := BookService.UpdateBook(updatedBook); err != nil {
 		return e.JSON(http.StatusInternalServerError, err.Error())
 	}
 
@@ -112,24 +110,4 @@ func DeleteBook(e echo.Context) error {
 	}
 
 	return e.JSON(http.StatusOK, "Book was deleted successfully")
-}
-
-func ChangeBookInfo(oldBook, reqBook types.BookRequest) models.Book {
-
-	var updatedBook models.Book
-	updatedBook.BookName = oldBook.BookName
-	updatedBook.Author = oldBook.Author
-	updatedBook.Publication = oldBook.Publication
-
-	if reqBook.BookName != "" {
-		updatedBook.BookName = reqBook.BookName
-	}
-	if reqBook.Author != "" {
-		updatedBook.Author = reqBook.Author
-	}
-	if reqBook.Publication != "" {
-		updatedBook.Publication = reqBook.Publication
-	}
-
-	return updatedBook
 }
